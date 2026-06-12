@@ -1,0 +1,356 @@
+@define-color bg_color       #0d1117;
+@define-color surface_color  #161b22;
+@define-color border_color   #30363d;
+@define-color text_color     #e6edf3;
+@define-color muted_color    #8b949e;
+@define-color accent_green   #22c55e;
+@define-color accent_amber   #f59e0b;
+@define-color accent_blue    #3b82f6;
+@define-color accent_red     #ef4444;
+
+window {
+    background-color: @bg_color;
+    color: @text_color;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+notebook {
+    background-color: @surface_color;
+    border: none;
+}
+
+notebook > header {
+    background-color: @bg_color;
+    border-bottom: 1px solid @border_color;
+}
+
+notebook > header > tabs > tab {
+    padding: 8px 20px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: @muted_color;
+    border-radius: 0;
+    border: none;
+    background: transparent;
+}
+
+notebook > header > tabs > tab:checked {
+    color: @text_color;
+    border-bottom: 2px solid @accent_green;
+    background: transparent;
+}
+
+notebook > header > tabs > tab:hover:not(:checked) {
+    color: @text_color;
+    background: alpha(white, 0.03);
+}
+
+button {
+    background-color: transparent;
+    border: 1px solid @border_color;
+    border-radius: 7px;
+    padding: 6px 14px;
+    color: @text_color;
+    font-family: inherit;
+    transition: background-color 100ms ease, border-color 100ms ease, color 100ms ease;
+}
+
+button:hover {
+    background-color: alpha(white, 0.05);
+}
+
+button:active,
+button.active {
+    background-color: alpha(@accent_green, 0.15);
+    border-color: @accent_green;
+    color: @accent_green;
+}
+
+button.destructive {
+    border-color: @accent_red;
+    color: @accent_red;
+}
+
+button.destructive:hover {
+    background-color: alpha(@accent_red, 0.1);
+}
+
+button.accent {
+    background-color: @accent_green;
+    color: @bg_color;
+    border-color: @accent_green;
+    font-weight: bold;
+}
+
+button.accent:hover {
+    background-color: shade(@accent_green, 1.1);
+}
+
+button.accent:active {
+    background-color: shade(@accent_green, 0.9);
+}
+
+scale {
+    padding: 8px 0;
+}
+
+scale trough {
+    background-color: @border_color;
+    border-radius: 4px;
+    min-height: 4px;
+    min-width: 4px;
+}
+
+scale highlight {
+    background-color: @accent_green;
+    border-radius: 4px;
+}
+
+scale slider {
+    background-color: @text_color;
+    border-radius: 50%;
+    border: none;
+    box-shadow: none;
+    min-width: 16px;
+    min-height: 16px;
+    margin: -6px;
+}
+
+scale slider:hover {
+    background-color: @accent_green;
+}
+
+listbox {
+    background-color: transparent;
+}
+
+listbox row {
+    background-color: transparent;
+    border-bottom: 1px solid @border_color;
+    padding: 8px 12px;
+}
+
+listbox row:hover {
+    background-color: alpha(white, 0.03);
+}
+
+listbox row:selected {
+    background-color: alpha(@accent_green, 0.1);
+}
+
+listbox row:selected * {
+    color: @text_color;
+}
+
+.card {
+    background-color: @surface_color;
+    border-radius: 10px;
+    border: 1px solid @border_color;
+    padding: 12px;
+}
+
+.muted {
+    color: @muted_color;
+    font-size: 11px;
+}
+
+.badge-youtube {
+    background-color: alpha(@accent_amber, 0.15);
+    color: @accent_amber;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 10px;
+}
+
+.badge-radio {
+    background-color: alpha(@accent_blue, 0.15);
+    color: @accent_blue;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 10px;
+}
+
+.badge-local {
+    background-color: alpha(@accent_green, 0.15);
+    color: @accent_green;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 10px;
+}
+
+.filter-btn {
+    background-color: transparent;
+    border: 1px solid @border_color;
+    border-radius: 6px;
+    padding: 4px 12px;
+    color: @muted_color;
+    font-size: 11px;
+}
+
+.filter-btn:hover {
+    color: @text_color;
+    background-color: alpha(white, 0.03);
+}
+
+.filter-btn.active {
+    color: @accent_green;
+    border-color: @accent_green;
+    background-color: alpha(@accent_green, 0.1);
+}
+
+.now-playing-bar {
+    background-color: @surface_color;
+    border-top: 1px solid @border_color;
+    padding: 8px 12px;
+}
+
+.phase-work {
+    color: @accent_green;
+}
+
+.phase-break {
+    color: @accent_amber;
+}
+
+.phase-long {
+    color: @accent_blue;
+}
+
+.session-log-row {
+    padding: 6px 12px;
+    border-bottom: 1px solid alpha(@border_color, 0.5);
+}
+
+separator {
+    background-color: @border_color;
+    min-height: 1px;
+    min-width: 1px;
+}
+
+scrollbar {
+    background-color: transparent;
+    min-width: 6px;
+}
+
+scrollbar slider {
+    background-color: alpha(@muted_color, 0.4);
+    border-radius: 3px;
+    min-width: 6px;
+    min-height: 30px;
+}
+
+scrollbar slider:hover {
+    background-color: alpha(@muted_color, 0.65);
+}
+
+scrollbar.vertical {
+    min-width: 6px;
+}
+
+scrollbar.horizontal {
+    min-height: 6px;
+}
+
+entry {
+    background-color: @surface_color;
+    border: 1px solid @border_color;
+    border-radius: 6px;
+    color: @text_color;
+    caret-color: @accent_green;
+    padding: 6px 10px;
+    font-family: inherit;
+}
+
+entry:focus {
+    border-color: @accent_green;
+    box-shadow: 0 0 0 2px alpha(@accent_green, 0.15);
+}
+
+popover {
+    background-color: @surface_color;
+    border: 1px solid @border_color;
+    border-radius: 8px;
+}
+
+popover > arrow {
+    background-color: @surface_color;
+}
+
+tooltip {
+    background-color: @surface_color;
+    border: 1px solid @border_color;
+    border-radius: 6px;
+    color: @text_color;
+    font-family: inherit;
+    font-size: 11px;
+    padding: 4px 8px;
+}
+
+spinner {
+    color: @accent_green;
+}
+
+progressbar trough {
+    background-color: @border_color;
+    border-radius: 4px;
+    min-height: 4px;
+}
+
+progressbar progress {
+    background-color: @accent_green;
+    border-radius: 4px;
+}
+
+switch {
+    background-color: @border_color;
+    border-radius: 12px;
+    border: none;
+}
+
+switch:checked {
+    background-color: @accent_green;
+}
+
+switch slider {
+    background-color: @text_color;
+    border-radius: 50%;
+    margin: 2px;
+}
+
+combobox,
+dropdownbutton {
+    background-color: @surface_color;
+    border: 1px solid @border_color;
+    border-radius: 6px;
+    color: @text_color;
+    padding: 4px 8px;
+}
+
+.title-large {
+    font-size: 18px;
+    font-weight: bold;
+    color: @text_color;
+}
+
+.title-medium {
+    font-size: 14px;
+    font-weight: bold;
+    color: @text_color;
+}
+
+.monospace-timer {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 64px;
+    font-weight: bold;
+    color: @text_color;
+    letter-spacing: 0.05em;
+}
+
+.circular-progress-bg {
+    color: @border_color;
+}
+
+.circular-progress-fg {
+    color: @accent_green;
+}
