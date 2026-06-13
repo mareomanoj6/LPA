@@ -99,25 +99,30 @@ class PomodoroTab(Gtk.Box):
 
 
     def _build_top_section(self):
+        # We will build a unified dashboard card
         main_vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         main_vbox.set_halign(Gtk.Align.CENTER)
         main_vbox.set_valign(Gtk.Align.CENTER)
         main_vbox.set_vexpand(True)
         
+        # Title
         title = Gtk.Label(label="pomodoro")
         title.add_css_class("title-medium")
         title.set_margin_bottom(10)
         main_vbox.append(title)
         
+        # Center row with ring and controls
         center_hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=16)
         center_hbox.set_halign(Gtk.Align.CENTER)
         
+        # Play/Pause button
         self.btn_start_pause = Gtk.Button()
         self.btn_start_pause.set_icon_name("media-playback-start-symbolic")
         self.btn_start_pause.add_css_class("flat")
         self.btn_start_pause.connect("clicked", self._on_start_pause)
         center_hbox.append(self.btn_start_pause)
         
+        # Ring drawing area
         self.drawing_area = Gtk.DrawingArea()
         self.drawing_area.set_hexpand(True)
         self.drawing_area.set_vexpand(True)
@@ -125,6 +130,7 @@ class PomodoroTab(Gtk.Box):
         self.drawing_area.set_draw_func(self._draw_ring, None)
         center_hbox.append(self.drawing_area)
         
+        # Stop button
         btn_stop = Gtk.Button()
         btn_stop.set_icon_name("media-playback-stop-symbolic")
         btn_stop.add_css_class("flat")
@@ -133,6 +139,7 @@ class PomodoroTab(Gtk.Box):
         
         main_vbox.append(center_hbox)
         
+        # Bottom controls (W, B, S)
         bottom_hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=16)
         bottom_hbox.set_halign(Gtk.Align.CENTER)
         
@@ -143,7 +150,9 @@ class PomodoroTab(Gtk.Box):
         bottom_hbox.append(self.break_entry)
         
         main_vbox.append(bottom_hbox)
+        
         main_vbox.set_margin_bottom(20)
+        
         self.append(main_vbox)
 
     def _create_editable_stat(self, label_text, default_val, callback, min_val, max_val):
@@ -164,14 +173,17 @@ class PomodoroTab(Gtk.Box):
                     return
                 val = int(text)
                 
+                # Immediately clamp maximum visually
                 if val > max_val:
                     entry.set_text(str(max_val))
                     entry.set_position(-1)
                     val = max_val
                 
+                # Update underlying timer state immediately, clamping minimum
                 clamped = max(min_val, val)
                 callback(clamped)
                 
+                # Wait 1.5s after typing stops to visually clamp minimum
                 if entry._debounce_id:
                     GLib.source_remove(entry._debounce_id)
                 def snap_visual():
@@ -222,7 +234,7 @@ class PomodoroTab(Gtk.Box):
         return vbox
 
     def _build_bottom_section(self):
-        pass
+        pass # Remove log list from dashboard
 
     def _draw_ring(self, area, cr, width, height, _data):
         cx = width  / 2.0
@@ -321,7 +333,6 @@ class PomodoroTab(Gtk.Box):
         self.phase             = 'work'
         self._phase_start_dt   = None
         self._reset_timer_values()
-        self._update_labels()
         self.btn_start_pause.set_icon_name('media-playback-start-symbolic')
         self.drawing_area.queue_draw()
 
@@ -426,7 +437,6 @@ class PomodoroTab(Gtk.Box):
         if next_phase is None:
             self.phase         = 'work'
             self._reset_timer_values()
-            self._update_labels()
             self.btn_start_pause.set_icon_name('media-playback-start-symbolic')
             self.drawing_area.queue_draw()
             return
@@ -434,7 +444,6 @@ class PomodoroTab(Gtk.Box):
         self.phase           = next_phase
         self._phase_start_dt = None
         self._reset_timer_values()
-        self._update_labels()
         self.drawing_area.queue_draw()
         self._start_timer()
 
@@ -465,26 +474,6 @@ class PomodoroTab(Gtk.Box):
         self.state.short_break = val
         self.state.save_debounced()
         self._apply_duration_change('short_break')
-
-    def _session_label(self) -> str:
-        return f'  Session {self.session_count + 1}'
-
-    def _update_labels(self):
-        self.lbl_phase.set_label(PHASE_LABELS.get(self.phase, self.phase))
-        self.lbl_session.set_label(self._session_label())
-        phase_hex = PHASE_COLORS.get(self.phase, GREEN)
-        _apply_css(self.lbl_phase, f"""
-            label {{
-                color: {phase_hex};
-                font-family: 'JetBrains Mono', monospace;
-                font-size: 13px;
-                font-weight: bold;
-                letter-spacing: 1px;
-            }}
-        """)
-
-
-
 
     def _send_notification(self):
         phase_label = PHASE_LABELS.get(self.phase, self.phase)
