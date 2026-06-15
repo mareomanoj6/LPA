@@ -118,13 +118,6 @@ class ThemeManager:
             border-radius: 4px;
         }}
         
-        /* Dropdown and popover styling */
-        dropdown > button {{
-            background-color: alpha(@text_color, 0.05);
-            color: @text_color;
-            border: 1px solid alpha(@text_color, 0.1);
-            border-radius: 8px;
-        }}
         
         popover > contents {{
             background-color: @bg_color;
@@ -146,7 +139,6 @@ class ThemeManager:
             background-color: alpha(@text_color, 0.1);
         }}
         
-        /* Settings list styling */
         .settings-list {{
             background-color: alpha(@text_color, 0.05);
             border: 1px solid alpha(@text_color, 0.1);

@@ -35,7 +35,7 @@ class MainWindow(Gtk.ApplicationWindow):
         main_box.set_margin_bottom(8)
         main_box.set_margin_start(8)
         main_box.set_margin_end(8)
-    
+        
         header_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         
         logo_img = Gtk.Image.new_from_file(os.path.join(app_dir, 'assets', 'logo.png'))
@@ -112,7 +112,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
     def _on_settings_clicked(self, button):
         from ui.settings_dialog import SettingsDialog
-        dialog = SettingsDialog(self, self._state, self.theme_manager)
+        dialog = SettingsDialog(self, self._state)
         dialog.present()
 
     def _on_close_request(self, *_args) -> bool:

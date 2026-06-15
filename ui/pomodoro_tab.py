@@ -7,14 +7,11 @@ import os
 import datetime
 
 
-SURFACE = '#161b22'
 BORDER  = '#30363d'
 TEXT    = '#e6edf3'
 MUTED   = '#8b949e'
 GREEN   = '#22c55e'
 AMBER   = '#f59e0b'
-BLUE    = '#3b82f6'
-
 
 PHASE_COLORS = {
     'work':        GREEN,
@@ -30,21 +27,12 @@ def _hex_to_rgb(hex_color: str):
     h = hex_color.lstrip('#')
     return tuple(int(h[i:i+2], 16) / 255.0 for i in (0, 2, 4))
 
-
-def _apply_css(widget, css: str):
-    provider = Gtk.CssProvider()
-    provider.load_from_data(css.encode())
-    widget.get_style_context().add_provider(
-        provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-    )
-
 class PomodoroTab(Gtk.Box):
     def __init__(self, state):
         super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=0)
         self.state = state
 
         self.phase         = 'work'
-        self.session_count = 0     
         self.is_running    = False
         self._tick_source  = None 
         self._bg_source    = None
@@ -55,7 +43,6 @@ class PomodoroTab(Gtk.Box):
         self._phase_start_dt: datetime.datetime | None = None
 
         self._build_top_section()
-        self._build_bottom_section()
 
     def set_active(self, active: bool):
         self._is_active = active
@@ -99,30 +86,25 @@ class PomodoroTab(Gtk.Box):
 
 
     def _build_top_section(self):
-        # We will build a unified dashboard card
         main_vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         main_vbox.set_halign(Gtk.Align.CENTER)
         main_vbox.set_valign(Gtk.Align.CENTER)
         main_vbox.set_vexpand(True)
         
-        # Title
         title = Gtk.Label(label="pomodoro")
         title.add_css_class("title-medium")
         title.set_margin_bottom(10)
         main_vbox.append(title)
         
-        # Center row with ring and controls
         center_hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=16)
         center_hbox.set_halign(Gtk.Align.CENTER)
         
-        # Play/Pause button
         self.btn_start_pause = Gtk.Button()
         self.btn_start_pause.set_icon_name("media-playback-start-symbolic")
         self.btn_start_pause.add_css_class("flat")
         self.btn_start_pause.connect("clicked", self._on_start_pause)
         center_hbox.append(self.btn_start_pause)
         
-        # Ring drawing area
         self.drawing_area = Gtk.DrawingArea()
         self.drawing_area.set_hexpand(True)
         self.drawing_area.set_vexpand(True)
@@ -130,7 +112,6 @@ class PomodoroTab(Gtk.Box):
         self.drawing_area.set_draw_func(self._draw_ring, None)
         center_hbox.append(self.drawing_area)
         
-        # Stop button
         btn_stop = Gtk.Button()
         btn_stop.set_icon_name("media-playback-stop-symbolic")
         btn_stop.add_css_class("flat")
@@ -139,7 +120,6 @@ class PomodoroTab(Gtk.Box):
         
         main_vbox.append(center_hbox)
         
-        # Bottom controls (W, B, S)
         bottom_hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=16)
         bottom_hbox.set_halign(Gtk.Align.CENTER)
         
@@ -173,17 +153,14 @@ class PomodoroTab(Gtk.Box):
                     return
                 val = int(text)
                 
-                # Immediately clamp maximum visually
                 if val > max_val:
                     entry.set_text(str(max_val))
                     entry.set_position(-1)
                     val = max_val
                 
-                # Update underlying timer state immediately, clamping minimum
                 clamped = max(min_val, val)
                 callback(clamped)
                 
-                # Wait 1.5s after typing stops to visually clamp minimum
                 if entry._debounce_id:
                     GLib.source_remove(entry._debounce_id)
                 def snap_visual():
@@ -232,9 +209,6 @@ class PomodoroTab(Gtk.Box):
         vbox.append(lbl)
         
         return vbox
-
-    def _build_bottom_section(self):
-        pass # Remove log list from dashboard
 
     def _draw_ring(self, area, cr, width, height, _data):
         cx = width  / 2.0
@@ -329,7 +303,6 @@ class PomodoroTab(Gtk.Box):
     def _on_reset(self, _btn):
         self._stop_ticker()
         self.is_running        = False
-        self.session_count     = 0
         self.phase             = 'work'
         self._phase_start_dt   = None
         self._reset_timer_values()
@@ -364,9 +337,6 @@ class PomodoroTab(Gtk.Box):
         self._play_chime()
         self._send_notification()
 
-        if self.phase == 'work':
-            self.session_count += 1
-
         self._phase_start_dt = None
         self._show_phase_end_dialog()
 
@@ -388,14 +358,7 @@ class PomodoroTab(Gtk.Box):
         content.set_margin_end(24)
 
         phase_label = Gtk.Label(label=PHASE_LABELS.get(self.phase, self.phase) + ' finished!')
-        _apply_css(phase_label, f"""
-            label {{
-                color: {TEXT};
-                font-family: 'JetBrains Mono', monospace;
-                font-size: 14px;
-                font-weight: bold;
-            }}
-        """)
+        phase_label.add_css_class("title-medium")
         content.append(phase_label)
 
         if self.phase == 'work':
@@ -413,22 +376,7 @@ class PomodoroTab(Gtk.Box):
 
     def _dialog_add_button(self, dialog, content_area, label: str, callback):
         btn = Gtk.Button(label=label)
-        _apply_css(btn, f"""
-            button {{
-                background: {SURFACE};
-                border: 1px solid {BORDER};
-                border-radius: 6px;
-                color: {TEXT};
-                font-family: 'JetBrains Mono', monospace;
-                font-size: 12px;
-                padding: 8px 16px;
-                min-height: 0;
-                margin-bottom: 4px;
-            }}
-            button:hover {{
-                background: {BORDER};
-            }}
-        """)
+        btn.set_margin_bottom(4)
         btn.connect('clicked', lambda _: callback())
         content_area.append(btn)
 
