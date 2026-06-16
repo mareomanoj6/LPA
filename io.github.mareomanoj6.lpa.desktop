@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=LPA
+Comment=All-in-one Lo-fi, Pomodoro and Ambience application.
+Exec=lpa
+Icon=io.github.mareomanoj6.lpa
+Terminal=false
+Type=Application
+Categories=Utility
+StartupWMClass=io.github.mareomanoj6.lpa
