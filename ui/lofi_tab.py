@@ -164,7 +164,7 @@ class LoFiTab(Gtk.Box):
         if self._now_playing is None:
             self.stream_btn.set_label("--- Select a stream ---")
 
-    def _on_stream_menu_row_activated(self, listbox, row):
+    def _on_stream_menu_row_activated(self, _listbox, row):
         idx = row._stream_idx
         self.stream_popover.popdown()
         if idx >= 0 and idx < len(self._all_stations):

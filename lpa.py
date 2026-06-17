@@ -146,7 +146,7 @@ def on_activate(
 
     try:
         from audio.mpris import LPMprisServer
-        window.mpris_server = LPMprisServer(lofi_player, ambience_player, window.lofi_tab)
+        window._mpris_server = LPMprisServer(lofi_player, ambience_player, window.lofi_tab) #vulture: ignore
     except Exception as exc:
         print(f'[lpa] Warning: Failed to initialise MPRIS server: {exc}')
 

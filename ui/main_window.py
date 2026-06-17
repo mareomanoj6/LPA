@@ -23,7 +23,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
         self._state = state
 
-        self.theme_manager = ThemeManager(self._state)
+        self._theme_manager = ThemeManager(self._state) #vulture: ignore
         self._load_css(app_dir)
         self.set_title('lpa')
         self.set_default_size(800, 600)
