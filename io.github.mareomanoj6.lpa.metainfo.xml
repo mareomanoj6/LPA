@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.mareomanoj6.lpa</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>LPA</name>
+  <summary>A minimalist Pomodoro timer with Lo-Fi streams and ambient soundscapes</summary>
+  <description>
+    <p>
+	An app I built in the desperate attempt to get me a 12 LPA job (pun intended, Indians know what i'm on about).
+    </p>
+	<p>
+    Set pomodoro timers, stream your favourite lo-fi tracks and set some ambient noise in the background and chill...
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Customisable Pomodoro phases (Work, Short Break, Long Break).</li>
+      <li>Integrated Lo-Fi radio streaming via YouTube and internet radio.</li>
+      <li>Ambient sound mixer to create your ideal soundscape.</li>
+      <li>Global MPRIS media controls integration.</li>
+      <li>System tray support for quick access.</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">io.github.mareomanoj6.lpa.desktop</launchable>
+  <categories>
+    <category>Utility</category>
+    <category>Office</category>
+  </categories>
+  <developer_name>mareomanoj6</developer_name>
+  <url type="homepage">https://github.com/mareomanoj6/lpa</url>
+  <url type="bugtracker">https://github.com/mareomanoj6/lpa/issues</url>
+  <content_rating type="oars-1.1"/>
+  <releases>
+      <release version="1.0.0" date="2026-06-18">
+        <description>
+          <p>Initial release of LPA.</p>
+          <ul>
+            <li>Unified interface for Lo-Fi, Pomo, and Ambient Sounds.</li>
+            <li>Multi-channel audio support for simultaneous lo-fi and ambience.</li>
+            <li>MPRIS Media control support</li>
+          </ul>
+        </description>
+      </release>
+    </releases>
+</component>
