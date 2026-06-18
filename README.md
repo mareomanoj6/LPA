@@ -13,9 +13,9 @@ LPA ia an app, I made for myself, in the hopes of getting myself to focus on stu
 ## Installation
 
 ### Pre-built Flatpak (Recommended)
-The easiest way to install LPA is to download the pre-built `lp.flatpak` bundle from the **Releases** page of this repository.
+The easiest way to install LPA is to download the pre-built `lpa.flatpak` bundle from the **Releases** page of this repository.
 ```bash
-flatpak install lp.flatpak
+flatpak install lpa.flatpak
 ```
 ### Build Flatpak from Source
 ```bash
