@@ -16,7 +16,7 @@ A little something I made to get a 12LPA job... Lo-fi, ambient sounds, and a Pom
 - [Installation](#installation)
 - [Usage](#usage)
 - [Folder Structure](#folder-structure)
-- [Roadmap](#roadmap)
+- [Future Features](#future-features)
 - [Contributing](#contributing)
 - [License](#license)
 - [Thanks](#thanks)
@@ -111,7 +111,7 @@ lpa/
 └── README.md
 ```
 
-## Roadmap
+## Future Features
 - [ ] Advanced timer configurations
 - [ ] Expand to Web, Android, Windows and iOS.
 - [ ] Polish UI
