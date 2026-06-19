@@ -35,7 +35,6 @@ class AmbienceTab(Gtk.Box):
         self.flow = Gtk.FlowBox()
         self.flow.set_selection_mode(Gtk.SelectionMode.NONE)
         self.flow.set_homogeneous(False)
-        self.flow.set_max_children_per_line(3)
         self.flow.set_column_spacing(16)
         self.flow.set_row_spacing(16)
         self.flow.set_halign(Gtk.Align.CENTER)
@@ -48,6 +47,19 @@ class AmbienceTab(Gtk.Box):
         self._restore_state()
 
     def _load_sounds(self):
+        custom = getattr(self.state, 'custom_ambient_sounds', []) or []
+        total_sounds = len(BUILTIN_SOUNDS) + len(custom)
+        
+        if total_sounds <= 4:
+            cols = 2
+        elif total_sounds <= 6:
+            cols = 3
+        else:
+            cols = 4
+            
+        self.flow.set_min_children_per_line(cols)
+        self.flow.set_max_children_per_line(cols)
+
         for sound in BUILTIN_SOUNDS:
             full_path = os.path.join(self.app_sounds_dir, sound['file'])
             self._register_and_add_slider(
@@ -56,7 +68,6 @@ class AmbienceTab(Gtk.Box):
                 full_path=full_path
             )
 
-        custom = getattr(self.state, 'custom_ambient_sounds', []) or []
         for csound in custom:
             sound_id  = csound.get('id', csound.get('name', '').lower().replace(' ', '_'))
             full_path = csound.get('path', '')
