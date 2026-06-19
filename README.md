@@ -1,51 +1,128 @@
+<div align="center">
+  <img src="assets/logo.png" alt="LPA Logo" width="128" />
+</div>
+
 # LPA
-LPA ia an app, I made for myself, in the hopes of getting myself to focus on studies and get myself a minimum 12LPA Job placement offer (like that's going to happen.)
+
+![License](https://img.shields.io/github/license/mareomanoj6/lpa)
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+
+A little something I made to get a 12LPA job... Lo-fi, ambient sounds, and a Pomodoro timer. What else do you need?
+
+## Table of Contents
+- [About](#about)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Folder Structure](#folder-structure)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+- [Thanks](#thanks)
+
+## About
+<!-- Add your about section here -->
 
 ## Features
-- **Pomodoro Timer**: Customizable work and break timer with a visual progress ring and session tracking.
-
-- **Audio Streams**: Built-in support for streaming internet radio and YouTube audio using `yt-dlp`.
-
-- **Ambient Mixer**: Layer ambient sounds (e.g., rain, wind, cafe) with individual volume controls.
-
-- **System Integration**: Native GTK4 interface, MPRIS media controls, desktop notifications, and a system tray icon.
+- **Pomodoro Timer**: Customisable phases including Work, Short Break, and Long Break.
+- **Lo-Fi Radio**: Integrated Lo-Fi streaming via YouTube and internet radio.
+- **Ambient Sound Mixer**: Create your ideal soundscape with multi-channel audio support.
+- **System Tray**: Quick and easy access to the app from your system tray.
 
 ## Installation
 
-### Pre-built Flatpak (Recommended)
-The easiest way to install LPA is to download the pre-built `lpa.flatpak` bundle from the **Releases** page of this repository.
+### Via Flatpak (Recommended)
+LPA is packaged as a Flatpak. You can build and install it locally using `flatpak-builder`:
+
 ```bash
-flatpak install lpa.flatpak
-```
-### Build Flatpak from Source
-```bash
+# Add Flathub repository if you haven't already
+flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# Build and install the flatpak
 flatpak-builder --user --install --force-clean build-dir io.github.mareomanoj6.lpa.json
+```
+
+### Running from Source
+If you prefer not to use Flatpak, you can run the application directly using Python. First, ensure you have the required dependencies installed:
+- Python 3
+- GTK 4 (`gir1.2-gtk-4.0`)
+- PyGObject (`python3-gi`)
+- `yt-dlp` (`pip install yt-dlp`)
+- `libayatana-appindicator3` (for the system tray icon)
+
+Then, simply run the main script from the root of the repository:
+```bash
+python3 lpa.py
+```
+
+Or you could just download the release from the [Releases page](https://github.com/mareomanoj6/lpa/releases).
+
+## Usage
+
+Once installed, you can launch LPA from your application menu or run it from the terminal:
+
+```bash
 flatpak run io.github.mareomanoj6.lpa
 ```
 
-## Manual Installation (Development)
-To run LPA directly from source, install the following dependencies:
+Use the built-in interface to set your Pomodoro timers, pick a Lo-Fi stream, or mix ambient sounds to help you focus or relax.
 
-**Debian/Ubuntu:**
-```bash
-sudo apt install python3-gi python3-gi-cairo gir1.2-gtk-4.0 gir1.2-notify-0.7 libnotify-dev libayatana-appindicator3-1 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly python3-dbus
+## Folder Structure
+
+```text
+lpa/
+├── assets/
+│   ├── styles/
+│   │   └── app.css
+│   ├── bell.wav
+│   └── logo.png
+├── audio/
+│   ├── mpris.py
+│   └── player.py
+├── data/
+│   └── state.py
+├── sounds/
+│   ├── cafe.ogg
+│   ├── farm.ogg
+│   ├── fireplace.ogg
+│   ├── rain.ogg
+│   ├── train.ogg
+│   └── wind.ogg
+├── tray/
+│   ├── tray_icon.py
+│   └── tray_process.py
+├── ui/
+│   ├── ambience_tab.py
+│   ├── lofi_tab.py
+│   ├── main_window.py
+│   ├── pomodoro_tab.py
+│   ├── settings_dialog.py
+│   └── theme_manager.py
+├── lpa.py
+├── io.github.mareomanoj6.lpa.desktop
+├── io.github.mareomanoj6.lpa.json
+├── io.github.mareomanoj6.lpa.metainfo.xml
+├── libayatana-appindicator-gtk3.json
+├── python3-yt-dlp.json
+├── flatpak-pip-generator
+├── LICENSE
+├── LICENSE.CC0
+└── README.md
 ```
 
-**Arch Linux:**
-```bash
-sudo pacman -S python-gobject python-cairo gtk4 libnotify libayatana-appindicator gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly python-dbus
-```
+## Roadmap
+- [ ] Advanced timer configurations
+- [ ] Expand to Web, Android, Windows and iOS.
+- [ ] Polish UI
+- [ ] Add keyboard shortcuts
 
-Then install the Python dependency and run:
-```bash
-pip install yt-dlp
-python3 lpa.py
-```
-## Configuration and Data
-State, session logs, and custom audio files are stored in the standard XDG data directory:
-
-- **Native**: `~/.local/share/lpa/`
-- **Flatpak**: `~/.var/app/io.github.mareomanoj6.lpa/data/lpa/`
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
-GPL 3.0
+This project is licensed under the [GPL-3.0-or-later License](https://spdx.org/licenses/GPL-3.0-or-later.html). 
+Metadata is licensed under CC0-1.0.
+
+## Thanks
+Thanks to [Blanket](https://github.com/rafaelmardojai/blanket), for giving me an initial inspiration to bring everything I needed into one interface.
