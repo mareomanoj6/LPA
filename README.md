@@ -8,8 +8,6 @@
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
-A little something I made to get a 12LPA job... Lo-fi, ambient sounds, and a Pomodoro timer. What else do you need?
-
 ## Table of Contents
 - [About](#about)
 - [Features](#features)
@@ -22,7 +20,7 @@ A little something I made to get a 12LPA job... Lo-fi, ambient sounds, and a Pom
 - [Thanks](#thanks)
 
 ## About
-<!-- Add your about section here -->
+A little something I made to get a 12LPA job... Lo-fi, ambient sounds, and a Pomodoro timer. What else do you need to focus?
 
 ## Features
 - **Pomodoro Timer**: Customisable phases including Work, Short Break, and Long Break.
