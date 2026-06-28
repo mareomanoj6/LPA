@@ -111,7 +111,7 @@ lpa/
 
 ## Future Features
 - [ ] Advanced timer configurations
-- [ ] Expand to Web, Android, Windows and iOS.
+- [ ] Expand to Web, Android, Windows.
 - [ ] Polish UI
 - [ ] Add keyboard shortcuts
 
